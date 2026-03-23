@@ -66,9 +66,9 @@
     <p class="page-subtitle">Help your brothers — share old tests, study guides, and notes</p>
 
     <div class="info-box">
-      📬 <strong>How it works:</strong> Fill out the form below with your course info and a link
-      to your study material (Google Drive, Dropbox, etc.). The testbank admin will review and
-      add it to the site. Make sure your link is set to <strong>"Anyone with the link can view."</strong>
+      📬 <strong>How it works:</strong> Fill out the form below with the course number, professor name,
+      and a link to your file (Google Drive, Dropbox, etc.). The SLC will review and add it to the site.
+      Make sure your link is set to <strong>"Anyone with the link can view."</strong>
     </div>
 
     <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start;">
@@ -77,18 +77,7 @@
       <div class="contact-section" style="flex:1; min-width:300px;">
         <h2>Submit a Resource</h2>
 
-        <!-- Replace the action URL with your Formspree or Google Forms embed link -->
         <form action="YOUR_FORM_ENDPOINT_HERE" method="POST">
-
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="First Last" required />
-          </div>
-
-          <div class="form-group">
-            <label for="email">Your LSU Email</label>
-            <input type="email" id="email" name="email" placeholder="tigermail@lsu.edu" required />
-          </div>
 
           <div class="form-group">
             <label for="course">Course Code &amp; Number</label>
@@ -113,11 +102,6 @@
           <div class="form-group">
             <label for="link">Link to Resource</label>
             <input type="url" id="link" name="link" placeholder="https://drive.google.com/..." required />
-          </div>
-
-          <div class="form-group">
-            <label for="notes">Additional Notes (optional)</label>
-            <textarea id="notes" name="notes" placeholder="e.g. Fall 2024, Exam 1 covering chapters 1-5..."></textarea>
           </div>
 
           <button type="submit" class="btn btn-gold">Submit Resource</button>
