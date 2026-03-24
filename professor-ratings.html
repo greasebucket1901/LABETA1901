@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+(function(){
+  var PW='LAbeta1901',KEY='sigep_auth';
+  if(sessionStorage.getItem(KEY)==='1') return;
+  var style=document.createElement('style');
+  style.textContent='body{visibility:hidden!important}';
+  document.head.appendChild(style);
+  function showGate(){
+    style.remove();
+    var ov=document.createElement('div');
+    ov.style.cssText='position:fixed;inset:0;background:linear-gradient(135deg,#0d0d1a,#1a1a2e);display:flex;align-items:center;justify-content:center;z-index:9999;font-family:sans-serif';
+    ov.innerHTML='<div style="text-align:center;color:#fff;padding:40px;max-width:380px;width:90%">'+
+      '<div style="font-size:3rem;color:#c8a028;margin-bottom:8px">ΣΦΕ</div>'+
+      '<h2 style="margin:0 0 4px;font-size:1.4rem;letter-spacing:1px">Study Resources</h2>'+
+      '<p style="color:rgba(255,255,255,0.55);margin:0 0 28px;font-size:0.88rem">Enter password to access study resources</p>'+
+      '<input id="pw-in" type="password" placeholder="Password" style="width:100%;padding:12px 16px;border-radius:8px;border:1px solid rgba(200,160,40,0.4);background:rgba(255,255,255,0.07);color:#fff;font-size:1rem;box-sizing:border-box;outline:none;margin-bottom:12px">'+
+      '<button id="pw-btn" style="width:100%;padding:12px;background:#c8a028;color:#0d0d1a;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:10px">Enter</button>'+
+      '<p id="pw-err" style="color:#e74c3c;display:none;margin:0;font-size:0.85rem">Incorrect password. Try again.</p>'+
+      '</div>';
+    document.body.appendChild(ov);
+    document.body.style.visibility='visible';
+    var inp=document.getElementById('pw-in');
+    inp.focus();
+    function check(){
+      if(inp.value===PW){sessionStorage.setItem(KEY,'1');ov.remove();}
+      else{document.getElementById('pw-err').style.display='block';inp.value='';inp.focus();}
+    }
+    document.getElementById('pw-btn').onclick=check;
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')check();});
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',showGate);}
+  else{showGate();}
+})();
+</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professor Ratings | Sigma Phi Epsilon Study Resources</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .ratings-grid { display: flex; flex-direction: column; gap: 30px; margin-top: 20px; }
+    .course-block { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; }
+    .course-block-header { background: rgba(200,160,40,0.12); border-bottom: 1px solid rgba(200,160,40,0.25); padding: 14px 20px; }
+    .course-block-header h2 { margin: 0; font-size: 1.2rem; color: var(--gold); font-family: 'Oswald', sans-serif; letter-spacing: 1px; }
+    .rating-card { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .rating-card:last-child { border-bottom: none; }
+    .prof-name { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .rating-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+    .rating-badge { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 5px 12px; font-size: 0.82rem; color: rgba(255,255,255,0.85); }
+    .rating-badge span { color: var(--gold); font-weight: 700; }
+    .rating-comments { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.7; }
+    .rating-comments strong { color: rgba(255,255,255,0.95); }
+    .diff-1 { border-color: #27ae60; }  .diff-1 span { color: #27ae60; }
+    .diff-2 { border-color: #2ecc71; }  .diff-2 span { color: #2ecc71; }
+    .diff-3 { border-color: #f39c12; }  .diff-3 span { color: #f39c12; }
+    .diff-4 { border-color: #e67e22; }  .diff-4 span { color: #e67e22; }
+    .diff-5 { border-color: #e74c3c; }  .diff-5 span { color: #e74c3c; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-top">
+      <div class="greek-letters">ΣΦΕ</div>
+      <div class="header-text">
+        <h1>Sigma Phi Epsilon</h1>
+        <p>Study Resources</p>
+      </div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="classes-ag.html">Classes A–G</a>
+      <a href="classes-ho.html">Classes H–O</a>
+      <a href="classes-pz.html">Classes P–Z</a>
+      <a href="professor-ratings.html" class="active">Prof Ratings</a>
+      <a href="contact.html">Contact / Submit</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="page-title">Professor Ratings</h1>
+    <p class="page-subtitle">Real reviews from brothers · Grades, difficulty, and what to expect</p>
+
+    <div class="info-box">
+      📊 <strong>How to read these:</strong> Difficulty and Quality are rated out of 5.
+      Difficulty <span style="color:#27ae60">1/5</span> = very easy · <span style="color:#e74c3c">5/5</span> = very hard.
+      Grade shown is what the reviewer received.
+    </div>
+
+    <div class="ratings-grid">
+
+      <!-- ACCT 2001 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>ACCT 2001</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Peters, Kimberly</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A-</span></div>
+            <div class="rating-badge diff-4">Difficulty: <span>4/5</span></div>
+            <div class="rating-badge">Quality: <span>3/5</span></div>
+            <div class="rating-badge">Textbook: <span>Wiley Plus (required)</span></div>
+          </div>
+          <div class="rating-comments">Attendance required. The tests test you on application — a lot more than just memorizing. To do well, really understand your homeworks and memorize study guides. Going to SI is helpful but not 100% necessary. The tests only get harder and the final is the hardest. Definitely hard to make an A+ but very easy to end with a B-. As long as you do your homeworks, study hard, and genuinely try, you will be fine. Mrs. Peters is the best teacher for this class — she fills out the study guide for you and is very helpful if you're struggling.</div>
+        </div>
+      </div>
+
+      <!-- BIOL 1201 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>BIOL 1201</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Luzan, Tatiana</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-3">Difficulty: <span>3/5</span></div>
+            <div class="rating-badge">Quality: <span>4/5</span></div>
+            <div class="rating-badge">Textbook: <span>Recommended (ebook with homework)</span></div>
+          </div>
+          <div class="rating-comments">Attendance is not mandatory! Luzan is hilarious and honestly not a great teacher BUT you will pass if you put in any effort — she gives tons of bonus, you just have to study on your own. Would 100% take her if she's an option!</div>
+        </div>
+      </div>
+
+      <!-- BIOL 2051 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>BIOL 2051</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Brininstool</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A-</span></div>
+            <div class="rating-badge diff-3">Difficulty: <span>3/5</span></div>
+            <div class="rating-badge">Quality: <span>3/5</span></div>
+            <div class="rating-badge">Textbook: <span>Online courseware</span></div>
+          </div>
+          <div class="rating-comments">Brininstool is great! She takes attendance so don't skip — she has a Zoom option for attendance. Weekly Mastering Biology assignments. Tests are on Moodle taken at home and are fairly easy. However, lab midterm and final are VERY hard. They consist of all short answer so prepare early.</div>
+        </div>
+      </div>
+
+      <!-- BIOL 2160 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>BIOL 2160</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Crousillac, Scott <span style="color:rgba(255,255,255,0.4);font-weight:400;font-size:0.85rem">(Review 1)</span></div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A-</span></div>
+            <div class="rating-badge diff-2">Difficulty: <span>2/5</span></div>
+            <div class="rating-badge">Quality: <span>4/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">Homework and course load was very little. Attendance not mandatory. Quizzes were difficult but tests were straight from the slides and the test bank — not always exact but very similar questions. Not too hard of a class.</div>
+        </div>
+        <div class="rating-card">
+          <div class="prof-name">Crousillac, Scott <span style="color:rgba(255,255,255,0.4);font-weight:400;font-size:0.85rem">(Review 2)</span></div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>C+</span></div>
+            <div class="rating-badge diff-5">Difficulty: <span>5/5</span></div>
+            <div class="rating-badge">Quality: <span>1/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">Attendance isn't mandatory — he only goes through PowerPoints in class, listen to his lectures in his slideshow notes! Only grades are exams and quizzes so study at least a week in advance — tests are hefty and detailed. Only homework was quizzes — do this in groups and split up looking up the answers.</div>
+        </div>
+        <div class="rating-card">
+          <div class="prof-name">Hunt, Lyman</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-1">Difficulty: <span>1/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>No</span></div>
+          </div>
+          <div class="rating-comments">Attendance yes, but if you have to miss just email him — he is so chill. This is the easiest A ever. A midterm and final on Moodle. Every two weeks you have a 5 question quiz on Moodle so you don't go to class every other Friday. Answers are on Quizlet. Group projects are also super easy. Definitely not a stressful class at all. 100% recommend.</div>
+        </div>
+      </div>
+
+      <!-- COMD 2050 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>COMD 2050</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Pradreep, Aswathy</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-1">Difficulty: <span>1/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>No</span></div>
+          </div>
+          <div class="rating-comments">This class was amazing! Dr. Ash (her nickname) is a caring professor and really wants to see students succeed. She will also let you shadow her in her appointments with speech patients!</div>
+        </div>
+      </div>
+
+      <!-- ENGL 2025 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>ENGL 2025</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Tusa, Chris <span style="color:rgba(255,255,255,0.4);font-weight:400;font-size:0.85rem">(Review 1)</span></div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-1">Difficulty: <span>1/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>No</span></div>
+          </div>
+          <div class="rating-comments">This man is amazing. Even though it's a literature class, we only had to read 2 books and he made sure they had movies so we had the option of watching instead. We watch all movies/TV shows in class and you are graded for a reflection each week — as long as you put something down you get a 100. We watched Black Mirror episodes almost every time.</div>
+        </div>
+        <div class="rating-card">
+          <div class="prof-name">Tusa, Chris <span style="color:rgba(255,255,255,0.4);font-weight:400;font-size:0.85rem">(Review 2)</span></div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-1">Difficulty: <span>1/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>No</span></div>
+          </div>
+          <div class="rating-comments">Attendance is required but counts very minimally so you can miss if needed. Homework is all posted online — it's just a super short essay once a week based off a Black Mirror episode you watch in class. Essay is just your own thoughts about it.</div>
+        </div>
+      </div>
+
+      <!-- ENGL 2027 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>ENGL 2027</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Trumbo, Geoffrey</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-2">Difficulty: <span>2/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>No</span></div>
+          </div>
+          <div class="rating-comments">If you need an English literature credit, take this! Attendance is not mandatory (he does pop quizzes but tells you when they'll be). VERY minimal effort and easy grader! No homework — just two tests and in-class assignments!</div>
+        </div>
+      </div>
+
+      <!-- ENGL 2029 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>ENGL 2029</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Turner, Michelle</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-2">Difficulty: <span>2/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>No</span></div>
+          </div>
+          <div class="rating-comments">Attendance not mandatory (she said she gives random pop quizzes but only did 2 the whole year — if you missed you could email her and she'd let you re-take it). Only exams are midterm and final. You have to attend a play and write a paper but it's super straightforward. Group presentation on Hamilton — got a lot of bonus and ended up with 125%. You also get to watch Hamilton at the end of the semester! She's kind of a hot mess express but she's awesome.</div>
+        </div>
+      </div>
+
+      <!-- ENVS 1126 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>ENVS 1126</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Laws, Edward</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-1">Difficulty: <span>1/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>No</span></div>
+          </div>
+          <div class="rating-comments">This has to be the easiest class on campus. One 5-question quiz a week plus a midterm and final. Everything is on Moodle and Quizlet. You NEVER have to go to class.</div>
+        </div>
+      </div>
+
+      <!-- FIN 3351 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>FIN 3351</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Slawson, C</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A</span></div>
+            <div class="rating-badge diff-3">Difficulty: <span>3/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">TAKE HIS CLASSES!! Slawson is probably the best professor you'll have. He makes sure you know what's important for exams and truly wants you to learn the material. Attendance is required. He does a lot of "pop assignments" but grades them all on participation, not accuracy. He records all lectures and posts to Moodle. Homework load is really low. Grade breakdown: 25% HW, 25% pop assignments, 25% midterm, 25% final (gave the option to not take the final and keep your current grade). Didn't take his classes until last semester and regret it so much.</div>
+        </div>
+      </div>
+
+      <!-- FREN 1001 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>FREN 1001</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Addison</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-3">Difficulty: <span>3/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">Attendance is mandatory but this woman is so sweet and genuinely wants you to succeed! She teaches slowly, is easy to understand, and very engaging! She also offers bonus.</div>
+        </div>
+      </div>
+
+      <!-- GBUS 3061 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>GBUS 3061</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Thompson, Melissa</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A</span></div>
+            <div class="rating-badge diff-3">Difficulty: <span>3/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>No (Emergenetics purchase required)</span></div>
+          </div>
+          <div class="rating-comments">One class a week. Attendance required. Communication-Intensive (C-I) course. Professor Thompson is amazing and super helpful — she really wants students to succeed. Includes writing your resume, elevator pitch, cover letters, LinkedIn, emailing professionally, interview prep, and a group project. The class ends a week before finals. If you're going into any professional setting (business, sales, marketing), take this class — I recommend senior year. Couldn't recommend enough!</div>
+        </div>
+      </div>
+
+      <!-- GEOG 1001 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>GEOG 1001</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Garello, Dominique</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A</span></div>
+            <div class="rating-badge diff-3">Difficulty: <span>3/5</span></div>
+            <div class="rating-badge">Quality: <span>2/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">She doesn't take attendance but does random polls in class for credit. There is a McGraw Hill assignment that takes forever due once a week plus a Packback. So much busy work. Only other graded assignments are the Midterm and Final — taken on Zoom with camera on but you could look at notes on another device. Not super hard, just very boring.</div>
+        </div>
+      </div>
+
+      <!-- LA 1203 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>LA 1203</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Fryling, Charles</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-1">Difficulty: <span>1/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>No</span></div>
+          </div>
+          <div class="rating-comments">Attendance yes. All you have in the entire class is a midterm and final and everyone has the answers — there is an exact Quizlet for both. This class requires absolutely 0 effort and is the easiest 100 A+ you will ever make. Highly recommend.</div>
+        </div>
+      </div>
+
+      <!-- MATH 1150 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>MATH 1150</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Kadem, Fayadh</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A</span></div>
+            <div class="rating-badge diff-2">Difficulty: <span>2/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">He is an amazing teacher and genuinely wants you to learn and understand. Loves when you participate. Homework load was slim. Very helpful and also loves to write words of encouragement on tests. Since it's a smaller class (~30 people), he knows if you're struggling and will pull you aside to offer extra help. So sweet.</div>
+        </div>
+      </div>
+
+      <!-- PHIL 2020 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>PHIL 2020</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Wells, Chris <span style="color:rgba(255,255,255,0.4);font-weight:400;font-size:0.85rem">(Review 1)</span></div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A-</span></div>
+            <div class="rating-badge diff-2">Difficulty: <span>2/5</span></div>
+            <div class="rating-badge">Quality: <span>4/5</span></div>
+            <div class="rating-badge">Textbook: <span>No</span></div>
+          </div>
+          <div class="rating-comments">Pretty interesting class. Going isn't necessary but it helps. He provides readings that are needed but some are hefty and harder to grasp — he does a good job explaining them though. There are regular online quizzes that help your grade a lot because exams can be tricky. He doesn't round up grades because he offers extra credit randomly throughout the semester. Overall good guy but a brain-stimulating course.</div>
+        </div>
+        <div class="rating-card">
+          <div class="prof-name">Wells, Chris <span style="color:rgba(255,255,255,0.4);font-weight:400;font-size:0.85rem">(Review 2)</span></div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A</span></div>
+            <div class="rating-badge diff-3">Difficulty: <span>3/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>No</span></div>
+          </div>
+          <div class="rating-comments">I LOVE CHRIS WELLS! He uses an attendance sheet but is extremely understanding if you need to miss. He lectures well and provides lecture outlines on paper with everything you may need. There are some 10-point Moodle quizzes (simple if you have the sheet) and 2-3 exams that are online essays — not hard if you pay attention. Homework load is minimal. These classes teach you a lot about life and the way we live. Extremely interesting material and engaging lectures.</div>
+        </div>
+      </div>
+
+      <!-- PSYC 2016 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>PSYC 2016</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Burke, Vanessa</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A</span></div>
+            <div class="rating-badge diff-3">Difficulty: <span>3/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">She is the only professor for 2016 but she is really awesome and accommodating. Even though it's a stats class, there are a lot of resources. She does not take attendance but you have to go to understand the material. Homework almost every week but it helps you understand. Your TA has a big impact on your overall experience with this class.</div>
+        </div>
+      </div>
+
+      <!-- PSYC 2017 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>PSYC 2017</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Burke, Vanessa</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A</span></div>
+            <div class="rating-badge diff-4">Difficulty: <span>4/5</span></div>
+            <div class="rating-badge">Quality: <span>4/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">Attendance isn't taken but it can get hard if you miss often. Class is difficult but she is the teacher to take if you need this class. She teaches well — the material is just a lot.</div>
+        </div>
+      </div>
+
+      <!-- SPAN 2101 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>SPAN 2101</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Vargas, Maria</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A-</span></div>
+            <div class="rating-badge diff-1">Difficulty: <span>1/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">Attendance is key — she really loves students who participate so always answer questions and volunteer. By far the SWEETEST professor and the best for the Spanish department. Very understanding and will work with you if you don't understand something. Do homework on time but she's lenient with excuses. Spanish does not get better than her!</div>
+        </div>
+        <div class="rating-card">
+          <div class="prof-name">McGuffin-Naranjo, Liliana</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A</span></div>
+            <div class="rating-badge diff-2">Difficulty: <span>2/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">Best professor in the Spanish Department if all you want is a good grade. She grades extremely easy for compositions and orals, is lenient with attendance, curves a bunch, and is super understanding. You might be confused in class because she doesn't teach much but she helps so much with grading that you almost don't need to.</div>
+        </div>
+      </div>
+
+      <!-- SPAN 2102 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>SPAN 2102</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Breaux, Kim</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>B-</span></div>
+            <div class="rating-badge diff-4">Difficulty: <span>4/5</span></div>
+            <div class="rating-badge">Quality: <span>2/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">She speaks only in Spanish so try your best to remember vocab and simple Spanish words. Do homework on time and come to each class knowing the topic or you will be lost. Quizzes and exams are hard — study Quizlets and the textbook for extra help. Attendance is important and sometimes she rewards students who show up on less crowded days.</div>
+        </div>
+      </div>
+
+      <!-- SW 2000 -->
+      <div class="course-block">
+        <div class="course-block-header"><h2>SW 2000</h2></div>
+        <div class="rating-card">
+          <div class="prof-name">Rizzuto, Jessica</div>
+          <div class="rating-meta">
+            <div class="rating-badge">Grade: <span>A+</span></div>
+            <div class="rating-badge diff-1">Difficulty: <span>1/5</span></div>
+            <div class="rating-badge">Quality: <span>5/5</span></div>
+            <div class="rating-badge">Textbook: <span>Yes</span></div>
+          </div>
+          <div class="rating-comments">If you're thinking about the social work field or just need an easy elective, take this class! Rizzuto is super sweet and really cares about her students. She's a full-time social worker and this is the only class she teaches. Attendance is mandatory but she cancels class at least once a week. All coursework is on Moodle at your own pace. All quizzes can be found on Quizlet or in the textbook. It's a service learning course so you do have to volunteer 4 hours at the food bank, but it's super easy.</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>
