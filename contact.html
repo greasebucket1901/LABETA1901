@@ -57,82 +57,176 @@
       <a href="classes-ag.html">Classes A–G</a>
       <a href="classes-ho.html">Classes H–O</a>
       <a href="classes-pz.html">Classes P–Z</a>
+      <a href="professor-ratings.html">Prof Ratings</a>
+      <a href="sigep-ratings.html">SigEp Ratings</a>
       <a href="contact.html" class="active">Contact / Submit</a>
     </nav>
   </header>
 
   <main>
-    <h1 class="page-title">Contact / Submit a Resource</h1>
-    <p class="page-subtitle">Help your brothers succeed — share study materials and resources</p>
+    <h1 class="page-title">Contact / Submit</h1>
+    <p class="page-subtitle">Submit a professor rating or a study resource for the chapter</p>
 
-    <div class="info-box">
-      📬 <strong>How it works:</strong> Fill out the form below with the course number, professor name,
-      and a link to your file (Google Drive, Dropbox, etc.). The SLC will review and add it to the site.
-      Make sure your link is set to <strong>"Anyone with the link can view."</strong>
-    </div>
+    <!-- ΣΦΕ BROTHER RATING FORM -->
+    <div id="sigep-rating" style="background:linear-gradient(135deg,rgba(200,160,40,0.08),rgba(75,38,131,0.12));border:1px solid rgba(200,160,40,0.3);border-radius:12px;padding:28px 32px;margin-bottom:36px;">
+      <h2 style="margin:0 0 6px;color:#c8a028;font-size:1.2rem;letter-spacing:0.5px;">ΣΦΕ Brother Rating</h2>
+      <p style="margin:0 0 20px;color:rgba(255,255,255,0.55);font-size:0.88rem;">Your honest take on a professor — tips, warnings, and whether brothers should take them.</p>
 
-    <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start;">
-
-      <!-- SUBMIT FORM -->
-      <div class="contact-section" style="flex:1; min-width:300px;">
-        <h2>Submit a Resource</h2>
-
-        <form action="YOUR_FORM_ENDPOINT_HERE" method="POST">
-
-          <div class="form-group">
-            <label for="course">Course Code &amp; Number</label>
-            <input type="text" id="course" name="course" placeholder="e.g. BIOL 1001" required />
+      <form onsubmit="return handleRatingSubmit(event)">
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+          <div class="form-group" style="flex:1;min-width:200px;">
+            <label for="r-professor">Professor's Name</label>
+            <input type="text" id="r-professor" placeholder="e.g. Dr. Smith" required />
           </div>
-
-          <div class="form-group">
-            <label for="professor">Professor's Name</label>
-            <input type="text" id="professor" name="professor" placeholder="e.g. Dr. Smith" required />
+          <div class="form-group" style="flex:1;min-width:200px;">
+            <label for="r-course">Course (optional)</label>
+            <input type="text" id="r-course" placeholder="e.g. BIOL 1001" />
           </div>
-
-          <div class="form-group">
-            <label for="resource_type">Resource Type</label>
-            <select id="resource_type" name="resource_type">
-              <option value="studyguide">Study Guide</option>
-              <option value="notes">Lecture Notes</option>
-              <option value="practice">Practice Problems</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="link">Link to Resource</label>
-            <input type="url" id="link" name="link" placeholder="https://drive.google.com/..." required />
-          </div>
-
-          <button type="submit" class="btn btn-gold">Submit Resource</button>
-        </form>
-      </div>
-
-      <!-- TIPS SIDEBAR -->
-      <div style="flex:1; min-width:260px;">
-        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:25px;">
-          <h3 style="font-family:'Oswald',sans-serif; color:var(--gold); font-size:1.2rem; margin-bottom:15px; text-transform:uppercase; letter-spacing:1px;">Tips for Submitting</h3>
-          <ul style="list-style:none; line-height:2; color:rgba(255,255,255,0.8); font-size:0.88rem;">
-            <li>✅ Use Google Drive or Dropbox for file links</li>
-            <li>✅ Set sharing to "Anyone with the link"</li>
-            <li>✅ Name your file clearly (e.g. BIOL1001_StudyGuide_Smith)</li>
-            <li>✅ Include the semester if you know it</li>
-            <li>❌ Don't submit copyrighted publisher materials</li>
-            <li>❌ Don't submit materials from the current semester</li>
-          </ul>
         </div>
 
-        <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:25px; margin-top:20px;">
-          <h3 style="font-family:'Oswald',sans-serif; color:var(--gold); font-size:1.2rem; margin-bottom:15px; text-transform:uppercase; letter-spacing:1px;">Contact the Admin</h3>
-          <p style="color:rgba(255,255,255,0.75); font-size:0.88rem; line-height:1.7;">
-            Have a question or want to report a broken link?<br/><br/>
-            Email: <a href="mailto:labetaslc@gmail.com" style="color:var(--gold);">labetaslc@gmail.com</a>
-          </p>
+        <div class="form-group">
+          <label for="r-rating">Overall Rating</label>
+          <select id="r-rating" required>
+            <option value="" disabled selected>Select a rating</option>
+            <option value="5">⭐⭐⭐⭐⭐ — Excellent, highly recommend</option>
+            <option value="4">⭐⭐⭐⭐ — Good professor</option>
+            <option value="3">⭐⭐⭐ — Average, nothing special</option>
+            <option value="2">⭐⭐ — Below average, proceed with caution</option>
+            <option value="1">⭐ — Avoid if possible</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="r-notes">Notes for Brothers</label>
+          <textarea id="r-notes" rows="4" placeholder="e.g. Tests straight from slides, go to every class, office hours actually help. Easy A if you put in the work..." required style="width:100%;padding:10px 14px;border-radius:8px;border:1px solid rgba(200,160,40,0.3);background:rgba(255,255,255,0.05);color:#fff;font-size:0.9rem;box-sizing:border-box;resize:vertical;font-family:inherit;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+            <input type="checkbox" id="r-recommended" style="width:16px;height:16px;accent-color:#c8a028;" />
+            <span style="font-size:0.88rem;">I recommend this professor to brothers</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-gold" id="r-submit-btn">Submit Brother Rating</button>
+        <div id="rating-success" style="display:none;margin-top:12px;color:#27ae60;font-size:0.88rem;">✓ Rating submitted — it's now live on the SigEp Ratings page!</div>
+        <div id="rating-error" style="display:none;margin-top:12px;color:#e74c3c;font-size:0.88rem;">Something went wrong. Try again.</div>
+      </form>
+    </div>
+
+    <!-- Hidden admin trigger — subtle, only admin knows it's there -->
+    <div style="text-align:right;margin-bottom:8px;">
+      <button onclick="showAdminPrompt()" style="background:none;border:none;color:rgba(255,255,255,0.1);font-size:0.75rem;cursor:pointer;padding:4px 8px;letter-spacing:0.5px;">⚙</button>
+    </div>
+
+    <!-- Admin password modal -->
+    <div id="admin-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:10000;align-items:center;justify-content:center;">
+      <div style="background:#1a1a2e;border:1px solid rgba(200,160,40,0.4);border-radius:12px;padding:28px;width:90%;max-width:360px;color:#fff;font-family:sans-serif;">
+        <h3 style="margin:0 0 14px;color:#c8a028;font-size:1rem;">Admin Access</h3>
+        <p id="admin-err" style="display:none;color:#e74c3c;font-size:0.82rem;margin:0 0 10px;">Incorrect password.</p>
+        <input id="admin-pw" type="password" placeholder="Admin password" style="width:100%;padding:10px 14px;border-radius:7px;border:1px solid rgba(200,160,40,0.35);background:rgba(255,255,255,0.07);color:#fff;font-size:0.95rem;box-sizing:border-box;outline:none;margin-bottom:12px;" />
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+          <button onclick="closeAdminPrompt()" style="padding:8px 16px;border-radius:7px;border:none;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);cursor:pointer;font-size:0.85rem;">Cancel</button>
+          <button onclick="checkAdminPw()" style="padding:8px 16px;border-radius:7px;border:none;background:#c8a028;color:#0d0d1a;font-weight:700;cursor:pointer;font-size:0.85rem;">Unlock</button>
         </div>
       </div>
-
     </div>
+
+    <!-- SLC ADMIN BOX — hidden until password entered -->
+    <div id="admin-section" style="display:none;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:28px 32px;">
+      <h3 style="margin:0 0 10px;color:#c8a028;font-size:1rem;text-transform:uppercase;letter-spacing:1px;">Add a Study Resource</h3>
+      <p style="margin:0 0 20px;color:rgba(255,255,255,0.6);font-size:0.9rem;line-height:1.7;">
+        Open <strong style="color:#fff;">Claude Code</strong> and paste the info below. Claude will add it to the correct class page automatically.
+      </p>
+
+      <div style="background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:18px 20px;font-family:monospace;font-size:0.85rem;color:rgba(255,255,255,0.75);line-height:2;">
+        <div style="color:#c8a028;margin-bottom:8px;font-size:0.75rem;letter-spacing:1px;">PASTE THIS FORMAT INTO CLAUDE CODE:</div>
+        Course: BIOL 1001<br/>
+        Professor: Dr. Smith<br/>
+        Resource Type: Study Guide / Lecture Notes / Practice Problems / Other<br/>
+        Link: https://drive.google.com/...<br/>
+        <span style="color:rgba(255,255,255,0.35);">(optional) Semester: Fall 2024</span>
+      </div>
+
+      <p style="margin:16px 0 0;color:rgba(255,255,255,0.35);font-size:0.8rem;">
+        Make sure the link is set to "Anyone with the link can view" before submitting.
+      </p>
+    </div>
+
   </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+  var _supabase = supabase.createClient(
+    'https://wxkwbnqbqxightbaallr.supabase.co',
+    'sb_publishable_zQ_JwkpIaXip6pqhmerOPw_gpm_3Izc'
+  );
+
+  // ── Change this to whatever admin password you want ──
+  var ADMIN_PW = 'SigEpAdmin1901';
+
+  function showAdminPrompt() {
+    var modal = document.getElementById('admin-modal');
+    modal.style.display = 'flex';
+    setTimeout(function(){ document.getElementById('admin-pw').focus(); }, 50);
+  }
+  function closeAdminPrompt() {
+    document.getElementById('admin-modal').style.display = 'none';
+    document.getElementById('admin-pw').value = '';
+    document.getElementById('admin-err').style.display = 'none';
+  }
+  function checkAdminPw() {
+    if (document.getElementById('admin-pw').value === ADMIN_PW) {
+      closeAdminPrompt();
+      document.getElementById('admin-section').style.display = 'block';
+      document.getElementById('admin-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      document.getElementById('admin-err').style.display = 'block';
+      document.getElementById('admin-pw').value = '';
+      document.getElementById('admin-pw').focus();
+    }
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && document.getElementById('admin-modal').style.display === 'flex') checkAdminPw();
+    if (e.key === 'Escape') closeAdminPrompt();
+  });
+
+  if (window.location.hash === '#sigep-rating') {
+    setTimeout(function() {
+      document.getElementById('sigep-rating').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
+  async function handleRatingSubmit(e) {
+    e.preventDefault();
+    var btn = document.getElementById('r-submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+    document.getElementById('rating-error').style.display = 'none';
+
+    var professor   = document.getElementById('r-professor').value.trim();
+    var course      = document.getElementById('r-course').value.trim();
+    var rating      = parseInt(document.getElementById('r-rating').value);
+    var notes       = document.getElementById('r-notes').value.trim();
+    var recommended = document.getElementById('r-recommended').checked;
+
+    var { error } = await _supabase.from('ratings').insert([{
+      professor, course, rating, notes, recommended
+    }]);
+
+    if (error) {
+      document.getElementById('rating-error').style.display = 'block';
+      console.error(error);
+    } else {
+      e.target.reset();
+      document.getElementById('rating-success').style.display = 'block';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'Submit Brother Rating';
+    return false;
+  }
+  </script>
 
 </body>
 </html>

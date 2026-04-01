@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+(function(){
+  var PW='LAbeta1901',KEY='sigep_auth';
+  if(sessionStorage.getItem(KEY)==='1') return;
+  var style=document.createElement('style');
+  style.textContent='body{visibility:hidden!important}';
+  document.head.appendChild(style);
+  function showGate(){
+    style.remove();
+    var ov=document.createElement('div');
+    ov.style.cssText='position:fixed;inset:0;background:linear-gradient(135deg,#0d0d1a,#1a1a2e);display:flex;align-items:center;justify-content:center;z-index:9999;font-family:sans-serif';
+    ov.innerHTML='<div style="text-align:center;color:#fff;padding:40px;max-width:380px;width:90%">'+
+      '<div style="font-size:3rem;color:#c8a028;margin-bottom:8px">ΣΦΕ</div>'+
+      '<h2 style="margin:0 0 4px;font-size:1.4rem;letter-spacing:1px">Study Resources</h2>'+
+      '<p style="color:rgba(255,255,255,0.55);margin:0 0 28px;font-size:0.88rem">Enter password to access study resources</p>'+
+      '<input id="pw-in" type="password" placeholder="Password" style="width:100%;padding:12px 16px;border-radius:8px;border:1px solid rgba(200,160,40,0.4);background:rgba(255,255,255,0.07);color:#fff;font-size:1rem;box-sizing:border-box;outline:none;margin-bottom:12px">'+
+      '<button id="pw-btn" style="width:100%;padding:12px;background:#c8a028;color:#0d0d1a;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;margin-bottom:10px">Enter</button>'+
+      '<p id="pw-err" style="color:#e74c3c;display:none;margin:0;font-size:0.85rem">Incorrect password. Try again.</p>'+
+      '</div>';
+    document.body.appendChild(ov);
+    document.body.style.visibility='visible';
+    var inp=document.getElementById('pw-in');
+    inp.focus();
+    function check(){
+      if(inp.value===PW){sessionStorage.setItem(KEY,'1');ov.remove();}
+      else{document.getElementById('pw-err').style.display='block';inp.value='';inp.focus();}
+    }
+    document.getElementById('pw-btn').onclick=check;
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter')check();});
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',showGate);}
+  else{showGate();}
+})();
+</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SigEp Ratings | Sigma Phi Epsilon Study Resources</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .sr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .sr-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(200,160,40,0.2);
+      border-radius: 12px;
+      padding: 20px 22px;
+      transition: border-color 0.2s;
+    }
+    .sr-card:hover { border-color: rgba(200,160,40,0.5); }
+    .sr-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+    .sr-prof-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .sr-course-badge {
+      font-size: 0.72rem;
+      background: rgba(200,160,40,0.12);
+      border: 1px solid rgba(200,160,40,0.3);
+      color: #c8a028;
+      border-radius: 5px;
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+    .sr-stars { font-size: 1.1rem; margin-bottom: 10px; letter-spacing: 1px; }
+    .sr-rec-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: rgba(39,174,96,0.15);
+      border: 1px solid rgba(39,174,96,0.35);
+      color: #27ae60;
+      border-radius: 5px;
+      padding: 2px 8px;
+      margin-bottom: 10px;
+    }
+    .sr-notes {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 10px;
+      margin-top: 4px;
+    }
+    .sr-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: rgba(255,255,255,0.25);
+      font-size: 0.9rem;
+    }
+    #sr-search {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(200,160,40,0.4);
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+      font-size: 0.95rem;
+      width: 100%;
+      max-width: 420px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    #sr-search::placeholder { color: rgba(255,255,255,0.35); }
+    .sr-count { color: rgba(255,255,255,0.4); font-size: 0.82rem; margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-top">
+      <div class="greek-letters">ΣΦΕ</div>
+      <div class="header-text">
+        <h1>Sigma Phi Epsilon</h1>
+        <p>Study Resources</p>
+      </div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="classes-ag.html">Classes A–G</a>
+      <a href="classes-ho.html">Classes H–O</a>
+      <a href="classes-pz.html">Classes P–Z</a>
+      <a href="professor-ratings.html">Prof Ratings</a>
+      <a href="sigep-ratings.html" class="active">SigEp Ratings</a>
+      <a href="contact.html">Contact / Submit</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="page-title">SigEp Ratings</h1>
+    <p class="page-subtitle">Professor reviews written by brothers — the real inside scoop</p>
+
+    <div class="info-box">
+      ⭐ These ratings come directly from brothers who have taken these professors.
+      Want to add one? Go to <a href="contact.html#sigep-rating" style="color:var(--gold);">Contact / Submit</a>.
+    </div>
+
+    <input id="sr-search" type="text" placeholder="Search by professor or course..." oninput="filterRatings(this.value)" style="margin-top:20px;">
+    <div class="sr-count" id="sr-count">Loading...</div>
+    <div id="sr-grid" class="sr-grid"></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+  var _supabase = supabase.createClient(
+    'https://wxkwbnqbqxightbaallr.supabase.co',
+    'sb_publishable_zQ_JwkpIaXip6pqhmerOPw_gpm_3Izc'
+  );
+
+  var allRatings = [];
+
+  function starsHTML(n) {
+    var s = '';
+    for (var i = 1; i <= 5; i++)
+      s += '<span style="color:' + (i <= n ? '#c8a028' : 'rgba(255,255,255,0.15)') + '">★</span>';
+    return s;
+  }
+
+  function renderCard(r) {
+    return '<div class="sr-card" data-name="' + r.professor.toLowerCase() + '" data-course="' + (r.course||'').toLowerCase() + '">' +
+      '<div class="sr-card-header">' +
+        '<div class="sr-prof-name">' + r.professor + '</div>' +
+        (r.course ? '<span class="sr-course-badge">' + r.course + '</span>' : '') +
+      '</div>' +
+      '<div class="sr-stars">' + starsHTML(r.rating) + '</div>' +
+      (r.recommended ? '<div class="sr-rec-badge">✓ Recommended by Brothers</div>' : '') +
+      (r.notes ? '<div class="sr-notes">' + r.notes.replace(/</g,'&lt;') + '</div>' : '') +
+    '</div>';
+  }
+
+  function updateCount(n) {
+    document.getElementById('sr-count').textContent = n + ' rating' + (n !== 1 ? 's' : '');
+  }
+
+  async function loadRatings() {
+    var grid = document.getElementById('sr-grid');
+    grid.innerHTML = '<div style="color:rgba(255,255,255,0.3);padding:40px 0;text-align:center;">Loading...</div>';
+
+    var { data, error } = await _supabase
+      .from('ratings')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error || !data) {
+      grid.innerHTML = '<div class="sr-empty">Could not load ratings. Try again later.</div>';
+      return;
+    }
+
+    allRatings = data;
+
+    if (data.length === 0) {
+      grid.innerHTML = '<div class="sr-empty" id="sr-empty">No ratings yet — be the first to <a href="contact.html#sigep-rating" style="color:var(--gold);">submit one</a>.</div>';
+      updateCount(0);
+      return;
+    }
+
+    grid.innerHTML = data.map(renderCard).join('');
+    updateCount(data.length);
+  }
+
+  function filterRatings(q) {
+    q = q.toLowerCase();
+    var cards = document.querySelectorAll('.sr-card');
+    var visible = 0;
+    cards.forEach(function(card) {
+      var show = !q || card.dataset.name.includes(q) || card.dataset.course.includes(q);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    updateCount(visible);
+  }
+
+  loadRatings();
+  </script>
+
+</body>
+</html>
