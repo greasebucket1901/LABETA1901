@@ -215,7 +215,9 @@
     }]);
 
     if (error) {
-      document.getElementById('rating-error').style.display = 'block';
+      var errEl = document.getElementById('rating-error');
+      errEl.textContent = 'Error: ' + (error.message || JSON.stringify(error));
+      errEl.style.display = 'block';
       console.error(error);
     } else {
       e.target.reset();
