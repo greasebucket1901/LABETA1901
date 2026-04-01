@@ -167,7 +167,8 @@
   async function deleteRating(id) {
     if (!confirm('Delete this rating?')) return;
     var { error } = await _supabase.from('ratings').delete().eq('id', id);
-    if (!error) loadRatings();
+    if (error) { alert('Delete failed: ' + error.message); }
+    else { loadRatings(); }
   }
 
   function starsHTML(n) {
@@ -186,7 +187,7 @@
       '<div class="sr-stars">' + starsHTML(r.rating) + '</div>' +
       (r.recommend ? '<div class="sr-rec-badge">✓ Recommended by Brothers</div>' : '') +
       (r.notes ? '<div class="sr-notes">' + r.notes.replace(/</g,'&lt;') + '</div>' : '') +
-      '<button class="sr-delete-btn" onclick="deleteRating(' + r.id + ')">✕ Delete Rating</button>' +
+      '<button class="sr-delete-btn" onclick="deleteRating(\'' + r.id + '\')">✕ Delete Rating</button>' +
     '</div>';
   }
 
