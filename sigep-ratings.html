@@ -190,11 +190,10 @@
 
     var { data, error } = await _supabase
       .from('ratings')
-      .select('*')
-      .order('id', { ascending: false });
+      .select('*');
 
     if (error || !data) {
-      grid.innerHTML = '<div class="sr-empty">Could not load ratings. Try again later.</div>';
+      grid.innerHTML = '<div class="sr-empty">Error: ' + (error ? error.message : 'no data') + '</div>';
       return;
     }
 
