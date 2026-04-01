@@ -175,7 +175,7 @@
         (r.course ? '<span class="sr-course-badge">' + r.course + '</span>' : '') +
       '</div>' +
       '<div class="sr-stars">' + starsHTML(r.rating) + '</div>' +
-      (r.recommended ? '<div class="sr-rec-badge">✓ Recommended by Brothers</div>' : '') +
+      (r.recommend ? '<div class="sr-rec-badge">✓ Recommended by Brothers</div>' : '') +
       (r.notes ? '<div class="sr-notes">' + r.notes.replace(/</g,'&lt;') + '</div>' : '') +
     '</div>';
   }
@@ -191,7 +191,7 @@
     var { data, error } = await _supabase
       .from('ratings')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('id', { ascending: false });
 
     if (error || !data) {
       grid.innerHTML = '<div class="sr-empty">Could not load ratings. Try again later.</div>';

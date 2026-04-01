@@ -211,7 +211,7 @@
     var recommended = document.getElementById('r-recommended').checked;
 
     var { error } = await _supabase.from('ratings').insert([{
-      professor, course, rating, notes, recommended
+      professor, course, rating, notes, recommend: recommended
     }]);
 
     if (error) {
