@@ -115,9 +115,8 @@
     }
     #sr-search::placeholder { color: rgba(255,255,255,0.35); }
     .sr-count { color: rgba(255,255,255,0.4); font-size: 0.82rem; margin-top: 8px; }
-    .sr-delete-btn { display:none; margin-top:10px; width:100%; padding:6px; border-radius:6px; border:1px solid rgba(231,76,60,0.4); background:rgba(231,76,60,0.08); color:#e74c3c; font-size:0.78rem; cursor:pointer; transition:background 0.15s; }
+    .sr-delete-btn { display:block; margin-top:10px; width:100%; padding:6px; border-radius:6px; border:1px solid rgba(231,76,60,0.4); background:rgba(231,76,60,0.08); color:#e74c3c; font-size:0.78rem; cursor:pointer; transition:background 0.15s; }
     .sr-delete-btn:hover { background:rgba(231,76,60,0.2); }
-    .admin-mode .sr-delete-btn { display:block; }
   </style>
 </head>
 <body>
@@ -150,25 +149,10 @@
       Want to add one? Go to <a href="contact.html#sigep-rating" style="color:var(--gold);">Contact / Submit</a>.
     </div>
 
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:20px;">
-      <input id="sr-search" type="text" placeholder="Search by professor or course..." oninput="filterRatings(this.value)" style="flex:1;min-width:200px;">
-      <button onclick="showAdminPrompt()" style="background:none;border:none;color:rgba(255,255,255,0.1);font-size:0.75rem;cursor:pointer;padding:4px 8px;">⚙</button>
-    </div>
+    <input id="sr-search" type="text" placeholder="Search by professor or course..." oninput="filterRatings(this.value)" style="margin-top:20px;">
     <div class="sr-count" id="sr-count">Loading...</div>
     <div id="sr-grid" class="sr-grid"></div>
 
-    <!-- Admin login modal -->
-    <div id="admin-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:10000;align-items:center;justify-content:center;">
-      <div style="background:#1a1a2e;border:1px solid rgba(200,160,40,0.4);border-radius:12px;padding:28px;width:90%;max-width:360px;color:#fff;font-family:sans-serif;">
-        <h3 style="margin:0 0 14px;color:#c8a028;font-size:1rem;">Admin Access</h3>
-        <p id="admin-err" style="display:none;color:#e74c3c;font-size:0.82rem;margin:0 0 10px;">Incorrect password.</p>
-        <input id="admin-pw" type="password" placeholder="Admin password" style="width:100%;padding:10px 14px;border-radius:7px;border:1px solid rgba(200,160,40,0.35);background:rgba(255,255,255,0.07);color:#fff;font-size:0.95rem;box-sizing:border-box;outline:none;margin-bottom:12px;" />
-        <div style="display:flex;gap:8px;justify-content:flex-end;">
-          <button onclick="closeAdminPrompt()" style="padding:8px 16px;border-radius:7px;border:none;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);cursor:pointer;font-size:0.85rem;">Cancel</button>
-          <button onclick="checkAdminPw()" style="padding:8px 16px;border-radius:7px;border:none;background:#c8a028;color:#0d0d1a;font-weight:700;cursor:pointer;font-size:0.85rem;">Unlock</button>
-        </div>
-      </div>
-    </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -178,32 +162,7 @@
     'sb_publishable_zQ_JwkpIaXip6pqhmerOPw_gpm_3Izc'
   );
 
-  var ADMIN_PW = 'SigEpAdmin1901';
   var allRatings = [];
-
-  function showAdminPrompt() {
-    document.getElementById('admin-modal').style.display = 'flex';
-    setTimeout(function(){ document.getElementById('admin-pw').focus(); }, 50);
-  }
-  function closeAdminPrompt() {
-    document.getElementById('admin-modal').style.display = 'none';
-    document.getElementById('admin-pw').value = '';
-    document.getElementById('admin-err').style.display = 'none';
-  }
-  function checkAdminPw() {
-    if (document.getElementById('admin-pw').value === ADMIN_PW) {
-      closeAdminPrompt();
-      document.body.classList.add('admin-mode');
-    } else {
-      document.getElementById('admin-err').style.display = 'block';
-      document.getElementById('admin-pw').value = '';
-      document.getElementById('admin-pw').focus();
-    }
-  }
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && document.getElementById('admin-modal').style.display === 'flex') checkAdminPw();
-    if (e.key === 'Escape') closeAdminPrompt();
-  });
 
   async function deleteRating(id) {
     if (!confirm('Delete this rating?')) return;
